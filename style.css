@@ -1,0 +1,100 @@
+.container-fluid {
+  background-image: url("images/pokemon_pokeball.webp");
+  background-position: top;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.4);
+  text-shadow: 1px 1px 1px #000000;
+  position: relative;
+}
+
+.btnAgregar,
+.btnSacar {
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  position: absolute;
+  top: 5%;
+  width: 30px;
+  height: 30px;
+  background-color: #2c92db;
+  border: 2px solid #043c69;
+}
+.btnAgregar {
+  right: 5%;
+}
+.btnSacar {
+  left: 5%;
+}
+
+.btnAgregar:hover,
+.btnSacar:hover {
+  cursor: pointer;
+}
+
+#imgPokebola {
+  cursor: pointer;
+}
+
+.oculto {
+  display: none;
+}
+
+.puntos{
+  transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -ms-transform: scale(1.5);
+  -o-transform: scale(1.5);
+}
+
+#ataque {
+  min-height: 100vh;
+}
+
+#divArena {
+  height: 43vh;
+}
+
+#statsBot,
+#statsPlayer {
+  background-position: right;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+#statsBot {
+  background-image: url("images/lider.png");
+}
+#statsPlayer {
+  background-image: url("images/ash.png");
+}
+
+#divBot {
+  background-color: rgba(255, 0, 0, 0.4);
+}
+#divPlayer {
+  background-color: rgba(0, 0, 255, 0.4);
+}
+#divArena {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.pokeAtack {
+  cursor: pointer;
+}
+
+.sombra-texto {
+  text-shadow: 1px 1px 1px #000000;
+}
+
+@media (min-width: 768px) {
+  #divArena {
+    height: 65vh;
+  }
+}
