@@ -1,7 +1,7 @@
 const URL = "https://pokeapi.co/api/v2/pokemon/"; // URL para fetch de Pokemon
 const characters = []; // Guardo los resultados del Fetch de Pokemon
 let equipoPokemon = []; // Guardo el equipo Pokemon elegido
-const cantPokemon = 151; // Cantidad de Pokemon a traer
+const cantPokemon = 50; // Cantidad de Pokemon a traer
 let cont = 0; // Contador para Ataque
 let ataquePlayer = 0;
 let defensaPlayer = 0;
