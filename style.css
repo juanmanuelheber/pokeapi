@@ -4,6 +4,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 .card {
@@ -46,7 +47,8 @@
   display: none;
 }
 
-.puntos{
+.puntos {
+  font-size: 5vh;
   transform: scale(1.5);
   -webkit-transform: scale(1.5);
   -moz-transform: scale(1.5);
@@ -58,31 +60,28 @@
   min-height: 100vh;
 }
 
-#divArena {
-  height: 43vh;
-}
-
-#statsBot,
-#statsPlayer {
-  background-position: right;
-  background-repeat: no-repeat;
-  background-size: contain;
-}
-#statsBot {
-  background-image: url("images/lider.png");
-}
-#statsPlayer {
-  background-image: url("images/ash.png");
-}
-
-#divBot {
-  background-color: rgba(255, 0, 0, 0.4);
-}
 #divPlayer {
   background-color: rgba(0, 0, 255, 0.4);
+  position: fixed;
+  top: 0;
+  height: 10vh;
+}
+#divBot {
+  background-color: rgba(255, 0, 0, 0.4);
+  position: fixed;
+  bottom: 0;
+  height: 10vh;
 }
 #divArena {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  height: 80vh;
 }
 
 .pokeAtack {
@@ -94,7 +93,21 @@
 }
 
 @media (min-width: 768px) {
+  #divPlayer,
+  #divBot {
+    height: 20vh;
+  }
   #divArena {
-    height: 65vh;
+    height: 60vh;
   }
 }
+
+/* 
+@media (min-width: 992px) { 
+  #divPlayer,#divBot {
+    height: 20vh;
+  }
+  #divArena {
+    height: 60vh;
+  }
+ } */

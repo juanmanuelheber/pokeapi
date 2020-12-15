@@ -3,10 +3,6 @@ const characters = []; // Guardo los resultados del Fetch de Pokemon
 let equipoPokemon = []; // Guardo el equipo Pokemon elegido
 const cantPokemon = 50; // Cantidad de Pokemon a traer
 let cont = 0; // Contador para Ataque
-let ataquePlayer = 0;
-let defensaPlayer = 0;
-let ataqueBot = 0;
-let defensaBot = 0;
 let puntosPlayer = 0;
 let puntosBot = 0;
 let ataques = 0;
@@ -46,31 +42,30 @@ const ocultar = (elem) => elem.classList.add("oculto");
 const deshabilitar = (elem) => elem.disabled = true;
 // Funcion para opacar elemento al 50%
 const opacar = (elem) => elem.style.opacity = "0.6";
+
 // Carga estadísticas (Ataque)
 const cargarStats = (id, div, puntos) => {
     document.querySelector(div).innerHTML = `
     <h4>${mayus(characters[id].name)}</h4>
-    ${characters[id].stats[1].stat.name}<div class="progress w-50"><div class="progress-bar bg-danger" style="width: ${characters[id].stats[1].base_stat}%" role="progressbar" aria-valuenow="${characters[id].stats[1].base_stat}" aria-valuemin="0" aria-valuemax="100">${characters[id].stats[1].base_stat}</div></div>
-    ${characters[id].stats[2].stat.name}<div class="progress w-50"><div class="progress-bar bg-primary" style="width: ${characters[id].stats[2].base_stat}%" role="progressbar" aria-valuenow="${characters[id].stats[2].base_stat}" aria-valuemin="0" aria-valuemax="100">${characters[id].stats[2].base_stat}</div></div>
-    <div id=${puntos} class="h1 m-5 text-danger puntos"></div>`;
+    <div class="row">
+    <div class="col-9">
+    ${characters[id].stats[1].stat.name}<div class="progress"><div class="progress-bar bg-danger" style="width: ${characters[id].stats[1].base_stat}%" role="progressbar" aria-valuenow="${characters[id].stats[1].base_stat}" aria-valuemin="0" aria-valuemax="100">${characters[id].stats[1].base_stat}</div></div>
+    ${characters[id].stats[2].stat.name}<div class="progress"><div class="progress-bar bg-primary" style="width: ${characters[id].stats[2].base_stat}%" role="progressbar" aria-valuenow="${characters[id].stats[2].base_stat}" aria-valuemin="0" aria-valuemax="100">${characters[id].stats[2].base_stat}</div></div>
+    </div>
+    <div class="col-2">
+    <div id=${puntos} class="text-center text-danger puntos mt-3"></div>
+    </div>
+    </div>`;
 }
 // Carga Imagen (Ataque)
-const cargarImagen = (id, div) => {
-    document.querySelector(div).innerHTML = `
-    <img class="w-100 m-auto" src="${div === "#imgPlayer" ? characters[id].sprites.front_default : characters[id].sprites.back_default}">
-    `
-}
+const cargarImagen = (id, div) =>document.querySelector(div).innerHTML = `<img class="w-100 m-auto" src="${div === "#imgPlayer" ? characters[id].sprites.front_default : characters[id].sprites.back_default}">`
 
 // Devuelve 1 si gana el primer jugador
 const pokemonGanador = (ataque1, defensa1, ataque2, defensa2, poke) => {
-    let playerAtaque = ataque1 - defensa2;
-    let playerDefensa = defensa1 - ataque2;
-    let botAtaque = ataque2 - defensa1;
-    let botDefensa = defensa2 - ataque1;
-    let playerTotal = playerAtaque + playerDefensa;
-    let botTotal = botAtaque + botDefensa;
+    let playerTotal = ataque1 - defensa2 +  defensa1 - ataque2;
+    let botTotal = ataque2 - defensa1 + defensa2 - ataque1;
     if (playerTotal > botTotal) {
-        document.querySelector("#pokeWin").innerHTML = `<h2 class=text-center">GANA ${poke}!</h2>`
+        document.querySelector("#pokeWin").innerHTML = `<h2 class=text-center">GANA ${mayus(poke)}!</h2>`
         return 1;
     } else {
         // document.querySelector("#pokeWin").innerHTML=`<h2 class=text-center">EMPATE!</h2>`
@@ -86,8 +81,8 @@ const elegirPokemon = (id, indice) => {
     // Carga estadísticas e imagen del jugador
     cargarStats(id, "#statsPlayer", "puntosPlayer");
     cargarImagen(id, "#imgPlayer");
-    ataquePlayer = characters[id].stats[1].base_stat;
-    defensaPlayer = characters[id].stats[2].base_stat;
+    let ataquePlayer = characters[id].stats[1].base_stat;
+    let defensaPlayer = characters[id].stats[2].base_stat;
     // Asigna el botón del Pokemon a "boton"
     let boton = document.querySelector(indice).firstChild
     // Deshabilita botón
@@ -102,16 +97,14 @@ const elegirPokemon = (id, indice) => {
     // Carga estadísticas e imagen del oponente
     cargarStats(idBot, "#statsBot", "puntosBot");
     cargarImagen(idBot, "#imgBot");
-    ataqueBot = characters[idBot].stats[1].base_stat;
-    defensaBot = characters[idBot].stats[2].base_stat;
+    let ataqueBot = characters[idBot].stats[1].base_stat;
+    let defensaBot = characters[idBot].stats[2].base_stat;
     // Crea array de Pokebolas del Oponente 
     let pokebolas = document.querySelectorAll(".pokeBot");
     // Cambia la Pokebola por el Pokemon
     pokebolas[cont].src = characters[idBot].sprites.front_default;
     // Agranda la imagen del Pokemon
-    pokebolas[cont].classList.add("w-75");
-    // Achica el height de la arena
-    document.querySelector("#divArena").style.height = "50vh";
+    pokebolas[cont].classList.add("w-100");
     // Opaca el Pokemon usado
     opacar(pokebolas[cont]);
     // Aumenta el contador para el próximo ataque
@@ -124,18 +117,22 @@ const elegirPokemon = (id, indice) => {
     document.querySelector("#puntosPlayer").innerHTML = puntosPlayer;
     document.querySelector("#puntosBot").innerHTML = puntosBot;
 
-    // Muestra el modal de Instrucciones al inicio
-    $("#modalPokeWin").modal("show");
+    // Muestra el modal de Pokemon Ganador
+    setTimeout(() => {
+        $("#modalPokeWin").modal("show");
+    }, 1000);
 
+    // Muestra el modal del Jugador Ganador
     if (ataques === equipoPokemon.length) {
         let resultado = "";
         if (puntosPlayer > puntosBot) {
-            resultado = "PUDISTE DERROTAR EL LÍDER DEL GYM!!! 🙌🏻";
+            resultado = "PUDISTE DERROTAR AL LÍDER DEL GYM!!! 🙌🏻";
         } else if (puntosPlayer < puntosBot) {
             resultado = "TE DERROTARON! TE AVISAMOS QUE NO IBA A SER FÁCIL 😝";
         } else {
             resultado = "EMPATARON! TE FALTÓ POCO 😬"
         }
+        // Cambia el InnerHTML del modal de Jugador Ganador en cuanto se cierra el modal de Pokemon Ganador
         $('#modalPokeWin').on('hidden.bs.modal', function (e) {
             document.querySelector("#ganador").innerHTML = `<h2 class=text-center">${resultado}</h2>`
             $("#modalGanador").modal("show");
@@ -228,7 +225,7 @@ const start = async () => {
     document.querySelector("#btnAtacar").addEventListener("click", () => {
         // Oculta la Pokebola
         ocultar(document.querySelector("#imgPokebola"));
-        // Oculta el menú de Busqueda
+        // Oculta el menú de Logo
         ocultar(document.querySelector("#menu"));
         // Borra es listado de Pokemon
         limpiarPersonajes();

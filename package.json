@@ -1,14 +1,14 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "description": "API de Marvel",
+  "description": "PokeAPI",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "API",
-    "Marvel"
+    "Pokemon"
   ],
   "author": "Juan Manuel Heber",
   "license": "ISC"
