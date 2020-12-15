@@ -60,17 +60,20 @@
   min-height: 100vh;
 }
 
+#divPlayer,
+#divBot {
+  position: fixed;
+  height: 10vh;
+  z-index: 5;
+}
+
 #divPlayer {
   background-color: rgba(0, 0, 255, 0.4);
-  position: fixed;
   top: 0;
-  height: 10vh;
 }
 #divBot {
   background-color: rgba(255, 0, 0, 0.4);
-  position: fixed;
   bottom: 0;
-  height: 10vh;
 }
 #divArena {
   background-color: rgba(255, 255, 255, 0.4);
