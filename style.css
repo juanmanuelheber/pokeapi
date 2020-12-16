@@ -63,7 +63,7 @@
 #divPlayer,
 #divBot {
   position: fixed;
-  height: 10vh;
+  /* height: 10vh; */
   z-index: 5;
 }
 
@@ -84,7 +84,7 @@
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
-  height: 80vh;
+  height: 100vh;
 }
 
 .pokeAtack {
@@ -101,16 +101,17 @@
     height: 20vh;
   }
   #divArena {
-    height: 60vh;
+    height: 100vh;
   }
 }
 
 /* 
-@media (min-width: 992px) { 
-  #divPlayer,#divBot {
-    height: 20vh;
-  }
-  #divArena {
-    height: 60vh;
-  }
- } */
+@media (max-width: 768px) { 
+  .imgAtaque{
+    transform: scale(1.5);
+    -webkit-transform: scale(1.5);
+    -moz-transform: scale(1.5);
+    -ms-transform: scale(1.5);
+    -o-transform: scale(1.5);
+}
+} */

@@ -145,7 +145,7 @@ const elegirPokemon = (id, indice) => {
 const cargarAtaque = (characters, equipoPokemon) => {
     for (let i = 0; i < equipoPokemon.length; i++) {
         let idPokemon = equipoPokemon[i] - 1;
-        document.querySelector(`#pokemonAtaque${i}`).innerHTML = `<button class="bg-transparent border-0 pokeAtack" type="button" onClick="elegirPokemon(${idPokemon},'#pokemonAtaque${i}')"><img class="w-100 m-auto" src="${characters[idPokemon].sprites.front_default}" ></button>`
+        document.querySelector(`#pokemonAtaque${i}`).innerHTML = `<button class="bg-transparent border-0 pokeAtack" type="button" onClick="elegirPokemon(${idPokemon},'#pokemonAtaque${i}')"><img class="w-100 m-auto imgAtaque" src="${characters[idPokemon].sprites.front_default}" ></button>`
     }
 }
 
