@@ -211,8 +211,9 @@ const start = async () => {
     // Deshabilita el botón de buscar
     deshabilitar(document.querySelector("#btnCargar"));
 
-    // Oculta la barra de progreso
+    // Oculta la barra de progreso y pokebola de "Equipo"
     ocultar(document.querySelector(".progress"));
+    ocultar(document.querySelector("#pokeballs"));
 
     // Muestra el modal de Instrucciones al inicio
     $("#modalInfo").modal("show");
@@ -226,47 +227,51 @@ const start = async () => {
     // Busca la cantidad de Pokemon indicados
     document.querySelector("#btnCargar").addEventListener("click",async()=>{
     
-    // Toma el valor del input
-    cantPokemon=parseInt(document.querySelector("#inputCantidad").value);
+        // Toma el valor del input
+        cantPokemon=parseInt(document.querySelector("#inputCantidad").value);
 
-    // Deshabilito el boton de Cargar
-    deshabilitar(document.querySelector("#btnCargar"));
+        // Deshabilito el boton de Cargar
+        deshabilitar(document.querySelector("#btnCargar"));
 
-    // Muestra la barra de progreso
-    mostrar(document.querySelector(".progress"));
+        // Muestra la barra de progreso
+        mostrar(document.querySelector(".progress"));
 
-    // Fetch de personajes
-    for (let i = 1; i < cantPokemon + 1; i++) { // modificar el tamaño del array para tomar más personajes
-        // Hago fetch de cada id de personaje
-        data = await fetchData(URL + i);
-        // Agrego la info del fetch en un Array
-        characters.push(data);
-        // Anima la barra de progreso
-        document.querySelector("#progreso").setAttribute(`style`,`width:${characters.length/cantPokemon*100}%`);
-    }
+        // Fetch de personajes
+        for (let i = 1; i < cantPokemon + 1; i++) { // modificar el tamaño del array para tomar más personajes
+            // Hago fetch de cada id de personaje
+            data = await fetchData(URL + i);
+            // Agrego la info del fetch en un Array
+            characters.push(data);
+            // Anima la barra de progreso
+            document.querySelector("#progreso").setAttribute(`style`,`width:${characters.length/cantPokemon*100}%`);
+        }
+        
+        // Borra el contenido del Div
+        document.querySelector("#personajes").innerHTML="";
 
-    document.querySelector("#personajes").innerHTML="";
+        // Muestra la pokebola de "Equipo"
+        mostrar(document.querySelector("#pokeballs"));
 
-    // Mapeo el Array de personajes y llamo a Crear Nodos
-    characters.map(character => crearNodo(character));
-    
-    // Al click en la pokebola, abre el modal mostrando el equipo
-    document.querySelector("#imgPokebola").addEventListener("click", () => abrirEquipo(characters, equipoPokemon));
-    
-    // Al click en Atacar, se borran los personajes y se crea el Ataque
-    document.querySelector("#btnAtacar").addEventListener("click", () => {
-        // Oculta la Pokebola
-        ocultar(document.querySelector("#imgPokebola"));
-        // Oculta el menú de Logo
-        ocultar(document.querySelector("#menu"));
-        // Borra es listado de Pokemon
-        limpiarPersonajes();
-        // Muestra el div de Ataque
-        mostrar(document.querySelector("#ataque"));
-        // Carga los Pokemon en divPlayer
-        cargarAtaque(characters, equipoPokemon);
-    });
-})
+        // Mapeo el Array de personajes y llamo a Crear Nodos
+        characters.map(character => crearNodo(character));
+        
+        // Al click en la pokebola, abre el modal mostrando el equipo
+        document.querySelector("#imgPokebola").addEventListener("click", () => abrirEquipo(characters, equipoPokemon));
+        
+        // Al click en Atacar, se borran los personajes y se crea el Ataque
+        document.querySelector("#btnAtacar").addEventListener("click", () => {
+            // Oculta la Pokebola
+            ocultar(document.querySelector("#imgPokebola"));
+            // Oculta el menú de Logo
+            ocultar(document.querySelector("#menu"));
+            // Borra es listado de Pokemon
+            limpiarPersonajes();
+            // Muestra el div de Ataque
+            mostrar(document.querySelector("#ataque"));
+            // Carga los Pokemon en divPlayer
+            cargarAtaque(characters, equipoPokemon);
+        });
+    })
 
 
 }
