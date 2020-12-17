@@ -1,7 +1,7 @@
 const URL = "https://pokeapi.co/api/v2/pokemon/"; // URL para fetch de Pokemon
 const characters = []; // Guardo los resultados del Fetch de Pokemon
 let equipoPokemon = []; // Guardo el equipo Pokemon elegido
-const cantPokemon = 50; // Cantidad de Pokemon a traer
+let cantPokemon = 50; // Cantidad de Pokemon a traer
 let cont = 0; // Contador para Ataque
 let puntosPlayer = 0;
 let puntosBot = 0;
@@ -38,10 +38,14 @@ const mayus = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 const mostrar = (elem) => elem.classList.remove("oculto");
 // Funcion para ocultar un elemento
 const ocultar = (elem) => elem.classList.add("oculto");
+// Funcion para habilitar un elemento
+const habilitar = (elem) => elem.disabled = false;
 // Funcion para deshabilitar un elemento
 const deshabilitar = (elem) => elem.disabled = true;
 // Funcion para opacar elemento al 50%
 const opacar = (elem) => elem.style.opacity = "0.6";
+// Habilita/Deshabilita botón de buscar
+const boton=(input="#inputCantidad")=>document.querySelector(input).value!==""?habilitar(document.querySelector("#btnCargar")):deshabilitar(document.querySelector("#btnCargar"));
 
 // Carga estadísticas (Ataque)
 const cargarStats = (id, div, puntos) => {
@@ -201,11 +205,35 @@ const crearNodo = (element) => {
 const mapearPersonajes = (personajes) => characters.push(personajes);
 
 const start = async () => {
+    // Activa el botón de buscar cuando el input no está vacío
+    document.querySelector("#inputCantidad").addEventListener("input",()=>boton());
+
+    // Deshabilita el botón de buscar
+    deshabilitar(document.querySelector("#btnCargar"));
+
+    // Oculta la barra de progreso
+    ocultar(document.querySelector(".progress"));
+
     // Muestra el modal de Instrucciones al inicio
     $("#modalInfo").modal("show");
-
+    
     // Habilita los tooltips
     $(function () { $('[data-toggle="tooltip"]').tooltip() })
+
+    // Deshabilita el envío del form
+    document.querySelector("#formCantidad").addEventListener("submit",sub);
+
+    // Busca la cantidad de Pokemon indicados
+    document.querySelector("#btnCargar").addEventListener("click",async()=>{
+    
+    // Toma el valor del input
+    cantPokemon=parseInt(document.querySelector("#inputCantidad").value);
+
+    // Deshabilito el boton de Cargar
+    deshabilitar(document.querySelector("#btnCargar"));
+
+    // Muestra la barra de progreso
+    mostrar(document.querySelector(".progress"));
 
     // Fetch de personajes
     for (let i = 1; i < cantPokemon + 1; i++) { // modificar el tamaño del array para tomar más personajes
@@ -213,14 +241,18 @@ const start = async () => {
         data = await fetchData(URL + i);
         // Agrego la info del fetch en un Array
         characters.push(data);
+        // Anima la barra de progreso
+        document.querySelector("#progreso").setAttribute(`style`,`width:${characters.length/cantPokemon*100}%`);
     }
+
+    document.querySelector("#personajes").innerHTML="";
 
     // Mapeo el Array de personajes y llamo a Crear Nodos
     characters.map(character => crearNodo(character));
-
+    
     // Al click en la pokebola, abre el modal mostrando el equipo
     document.querySelector("#imgPokebola").addEventListener("click", () => abrirEquipo(characters, equipoPokemon));
-
+    
     // Al click en Atacar, se borran los personajes y se crea el Ataque
     document.querySelector("#btnAtacar").addEventListener("click", () => {
         // Oculta la Pokebola
@@ -234,6 +266,8 @@ const start = async () => {
         // Carga los Pokemon en divPlayer
         cargarAtaque(characters, equipoPokemon);
     });
+})
+
 
 }
 

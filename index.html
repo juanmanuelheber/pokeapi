@@ -46,7 +46,47 @@
       </div>
 
       <!-- DIV DONDE SE CARGAN DINÁMICAMENTE LOS PERSONAJES -->
-      <div id="personajes" class="row justify-content-center"></div>
+      <div
+        id="personajes"
+        class="row justify-content-center text-white sombra-texto"
+      >
+        <div class="col-12">
+          <h2 class="text-center">Cuántos Pokemon querés cargar?</h2>
+          <p class="text-center">
+            Si cargás más de 50, puede demorar un poco...
+          </p>
+          <form class="form-inline" id="formCantidad">
+            <div class="col-12 d-flex justify-content-center mt-3">
+              <input
+                class="form-control mr-sm-2"
+                type="number"
+                id="inputCantidad"
+              />
+            </div>
+            <div class="col-12 d-flex justify-content-center mt-3">
+              <button
+                class="btn btn-success my-2 my-sm-0"
+                type="button"
+                id="btnCargar"
+              >
+                Cargar...
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="col-11 col-md-6 mt-5">
+          <div class="progress">
+            <div
+              id="progreso"
+              class="progress-bar"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style="width: 0%"
+            ></div>
+          </div>
+        </div>
+      </div>
 
       <!-- DIV DE ATAQUE -->
       <div id="ataque" class="oculto">
@@ -207,6 +247,9 @@
           </div>
           <div class="modal-body">
             <ol>
+              <li class="modal-text mt-2">
+                Elegí la cantidad de Pokemon que querés.
+              </li>
               <li class="modal-text mt-2">
                 Agregá los Pokemon a tu equipo! (máximo 6). Si te arrepentís de
                 alguno lo podés sacar.
